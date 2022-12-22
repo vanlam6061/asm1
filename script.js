@@ -119,6 +119,6 @@ const petArr = [];
 //   renderTableData(petArr);
 // }
 
-// 5 Hiển thị danh sách thú cưng
-// function renderTableData(petArr) {}
-// console.log(petArr);
+5 Hiển thị danh sách thú cưng
+function renderTableData(petArr) {}
+console.log(petArr);

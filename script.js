@@ -23,7 +23,8 @@ const sterilizedInput = document.getElementById("input-sterilized");
 
 //object data
 
-submitBtn.addEventListener("click", function (e) {
+const petArr = [];
+submitBtn.addEventListener("click", () => {
   const data = {
     id: idInput.value,
     name: nameInput.value,
@@ -38,56 +39,59 @@ submitBtn.addEventListener("click", function (e) {
     sterilized: sterilizedInput.checked,
     date: new Date(),
   };
-  console.log(data);
-  let validate = true;
-  // task 3: validate dữ liệu
-  //1 Không có trường nào bị nhập thiếu dữ liệu.
-  if (
-    data.id == "" ||
-    data.name == "" ||
-    data.age == "" ||
-    data.lengthA == "" ||
-    data.weight == "" ||
-    data.color == ""
-  ) {
-    alert("Please fill all fields");
-    validate = false;
-  }
-  //2 Giá trị ID không được trùng với các thú cưng còn lại. Nếu không hợp lệ, hãy đưa ra thông báo "ID must unique!".
-  //3 Trường Age chỉ được nhập giá trị trong khoảng 1 đến 15. Nếu không hợp lệ, hãy đưa ra thông báo "Age must be between 1 and 15!".
-  if (data.age < 1 || data.age > 15) {
-    alert("Age must be between 1 and 15!");
-    validate = false;
-  }
-
-  //   //4 Trường Weight chỉ được nhập giá trị trong khoảng 1 đến 15. Nếu không hợp lệ, hãy đưa ra thông báo "Weight must be between 1 and 15!".
-  if (data.weight < 1 || data.weight > 15) {
-    alert("Age must be between 1 and 15!");
-    validate = false;
-  }
-  //   //5 Trường Length chỉ được nhập giá trị trong khoảng 1 đến 100. Nếu không hợp lệ, hãy đưa ra thông báo "Length must be between 1 and 100!".
-  if (data.lengthA < 1 || data.lengthA > 100) {
-    alert("Length must be between 1 and 100!");
-    validate = false;
-  }
-  //6 Bắt buộc phải chọn giá trị cho trường Type. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Type!".
-  if (data.type == "") {
-    alert("Please select Type!");
-    validate = false;
-  }
-  //7 Bắt buộc phải chọn giá trị cho trường Breed. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Breed!".
-  if (data.breed == "") {
-    alert("Please select Breed!");
-    validate = false;
-  }
-  if (validate) {
-    petArr.push(data);
-    console.log(petArr);
-    // clearInput();
-    // renderTableData(petArr);
-  }
+  petArr.push(data);
+  return petArr;
 });
-const petArr = [];
+console.log(petArr);
+//   let validate = true;
+//   // task 3: validate dữ liệu
+//   //1 Không có trường nào bị nhập thiếu dữ liệu.
+//   if (
+//     data.id == "" ||
+//     data.name == "" ||
+//     data.age == "" ||
+//     data.lengthA == "" ||
+//     data.weight == "" ||
+//     data.color == ""
+//   ) {
+//     alert("Please fill all fields");
+//     validate = false;
+//   }
+//   //2 Giá trị ID không được trùng với các thú cưng còn lại. Nếu không hợp lệ, hãy đưa ra thông báo "ID must unique!".
+//   //3 Trường Age chỉ được nhập giá trị trong khoảng 1 đến 15. Nếu không hợp lệ, hãy đưa ra thông báo "Age must be between 1 and 15!".
+//   if (data.age < 1 || data.age > 15) {
+//     alert("Age must be between 1 and 15!");
+//     validate = false;
+//   }
+
+//   //   //4 Trường Weight chỉ được nhập giá trị trong khoảng 1 đến 15. Nếu không hợp lệ, hãy đưa ra thông báo "Weight must be between 1 and 15!".
+//   if (data.weight < 1 || data.weight > 15) {
+//     alert("Age must be between 1 and 15!");
+//     validate = false;
+//   }
+//   //   //5 Trường Length chỉ được nhập giá trị trong khoảng 1 đến 100. Nếu không hợp lệ, hãy đưa ra thông báo "Length must be between 1 and 100!".
+//   if (data.lengthA < 1 || data.lengthA > 100) {
+//     alert("Length must be between 1 and 100!");
+//     validate = false;
+//   }
+//   //6 Bắt buộc phải chọn giá trị cho trường Type. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Type!".
+//   if (data.type == "") {
+//     alert("Please select Type!");
+//     validate = false;
+//   }
+//   //7 Bắt buộc phải chọn giá trị cho trường Breed. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Breed!".
+//   if (data.breed == "") {
+//     alert("Please select Breed!");
+//     validate = false;
+//   }
+//   if (validate) {
+//     petArr.push(data);
+//     console.log(petArr);
+//     // clearInput();
+//     // renderTableData(petArr);
+//   }
+// });
+// const petArr = [];
 // console.log(petArr);
 // if (validate) {
 //   petArr.push(data);
@@ -119,6 +123,6 @@ const petArr = [];
 //   renderTableData(petArr);
 // }
 
-5 Hiển thị danh sách thú cưng
-function renderTableData(petArr) {}
-console.log(petArr);
+// 5 Hiển thị danh sách thú cưng
+// function renderTableData(petArr) {}
+// console.log(petArr);

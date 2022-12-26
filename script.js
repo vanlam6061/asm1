@@ -1,11 +1,4 @@
 "use strict";
-//1 Bắt sự kiện Click vào nút "Submit"
-// 2 Lấy dữ liệu từ các Form Input
-// 3 Validate dữ liệu
-// 4 Thêm thú cưng vào danh sách
-// 5 Hiển thị danh sách thú cưng
-// 6 Xóa các dữ liệu nhập trong Form Input
-// 7 add event for click button
 
 // DOM get element by id
 const submitBtn = document.getElementById("submit-btn");
@@ -20,38 +13,51 @@ const breedInput = document.getElementById("input-breed");
 const vaccinatedInput = document.getElementById("input-vaccinated");
 const dewormedInput = document.getElementById("input-dewormed");
 const sterilizedInput = document.getElementById("input-sterilized");
-//object data
-//1 Bắt sự kiện Click vào nút "Submit"
+const today = new Date();
+let yyyy = today.getFullYear();
+let mm = today.getMonth() + 1;
+let dd = today.getDate();
+//I. Bắt sự kiện Click vào nút "Submit"
 const petArr = [];
 submitBtn.addEventListener("click", () => {
+  // II. Lấy dữ liệu từ các Form Input
   const data = {
     id: idInput.value,
     name: nameInput.value,
     age: parseInt(ageInput.value),
     type: typeInput.value,
     weight: weightInput.value,
-    lengthA: lengthInput.value,
+    lengthPet: lengthInput.value,
     color: colorInput.value,
     breed: breedInput.value,
     vaccinated: vaccinatedInput.checked,
     dewormed: dewormedInput.checked,
     sterilized: sterilizedInput.checked,
-    // bmi: "",
-    date: new Date(),
+    bmi: null,
+    date: `${dd}/${mm}/${yyyy}`,
   };
+  // III. Validate dữ liệu
   let validate = true;
   //1 Không có trường nào bị nhập thiếu dữ liệu.
   if (
     data.id == "" ||
     data.name == "" ||
     data.age == "" ||
-    data.lengthA == "" ||
+    data.lengthPet == "" ||
     data.weight == "" ||
     data.color == ""
   ) {
     alert("Please fill all fields");
     validate = false;
   }
+  //2 Giá trị ID không được trùng với các thú cưng còn lại. Nếu không hợp lệ, hãy đưa ra thông báo "ID must unique!".
+  for (let i = 0; i < petArr.length; i++) {
+    if (data.id == petArr[i].id) {
+      alert("ID must unique!");
+      validate = false;
+    }
+  }
+  //3 Lấy dữ liệu từ các Form Input
   //3 Trường Age chỉ được nhập giá trị trong khoảng 1 đến 15. Nếu không hợp lệ, hãy đưa ra thông báo "Age must be between 1 and 15!".
   if (data.age < 1 || data.age > 15) {
     alert("Age must be between 1 and 15!");
@@ -62,22 +68,22 @@ submitBtn.addEventListener("click", () => {
     alert("Age must be between 1 and 15!");
     validate = false;
   }
-  //   //   //5 Trường Length chỉ được nhập giá trị trong khoảng 1 đến 100. Nếu không hợp lệ, hãy đưa ra thông báo "Length must be between 1 and 100!".
-  if (data.lengthA < 1 || data.lengthA > 100) {
+  //5 Trường Length chỉ được nhập giá trị trong khoảng 1 đến 100. Nếu không hợp lệ, hãy đưa ra thông báo "Length must be between 1 and 100!".
+  if (data.lengthPet < 1 || data.lengthPet > 100) {
     alert("Length must be between 1 and 100!");
     validate = false;
   }
-  //   //6 Bắt buộc phải chọn giá trị cho trường Type. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Type!".
+  //6 Bắt buộc phải chọn giá trị cho trường Type. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Type!".
   if (data.type == "") {
     alert("Please select Type!");
     validate = false;
   }
-  //   //7 Bắt buộc phải chọn giá trị cho trường Breed. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Breed!".
+  //7 Bắt buộc phải chọn giá trị cho trường Breed. Nếu không hợp lệ, hãy đưa ra thông báo "Please select Breed!".
   if (data.breed == "") {
     alert("Please select Breed!");
     validate = false;
   }
-
+  // IV. Thêm thú cưng vào danh sách
   if (validate == true) {
     petArr.push(data);
     renderTableData(petArr);
@@ -87,6 +93,7 @@ submitBtn.addEventListener("click", () => {
 });
 console.log(petArr);
 const tableBodyEl = document.getElementById("tbody");
+// V. Hiển thị danh sách thú cưng
 function renderTableData(petArr) {
   tableBodyEl.innerHTML = "";
   for (let i = 0; i < petArr.length; i++) {
@@ -97,7 +104,7 @@ function renderTableData(petArr) {
 		<td>${petArr[i].age}</td>
 		<td>${petArr[i].type}</td>
 	  <td>${petArr[i].weight} kg</td>
-		<td>${petArr[i].lengthA} cm</td>
+		<td>${petArr[i].lengthPet} cm</td>
 		<td>${petArr[i].breed}</td>
 		<td>
 		<i class="bi bi-square-fill" style="color: ${petArr[i].color}"></i>
@@ -121,6 +128,7 @@ function renderTableData(petArr) {
     tableBodyEl.appendChild(row);
   }
 }
+// VI Xóa các dữ liệu nhập trong Form Input
 const clearInput = () => {
   idInput.value = "";
   nameInput.value = "";
@@ -135,11 +143,11 @@ const clearInput = () => {
   sterilizedInput.checked = false;
   date: new Date();
 };
-
+// VII. Xóa một thú cưng
 const deletePet = (petId) => {
   // Confirm before deletePet
   if (confirm("Are you sure?")) {
-    for (let i = 0; i < petArr.length; i++) {
+    for (let i = 0; i < petArr[i].length; i++) {
       if (petArr[i].id == petId) {
         petArr.splice(i, 1);
         renderTableData(petArr);
@@ -147,6 +155,7 @@ const deletePet = (petId) => {
     }
   }
 };
+// VIII. Hiển thị các thú cưng khỏe mạnh
 function healthyStandard(petArr) {
   return (
     petArr.vaccinated == true &&
@@ -168,17 +177,19 @@ healthyCheckBtn.addEventListener("click", () => {
     healthyCheck = true;
   }
 });
+//IX. Tính toán chỉ số BMI
 const btnCalculateBMI = document.getElementById("bmi-btn");
 
-btnCalculateBMI.addEventListener("click", calculateBMI(petArr));
+btnCalculateBMI.addEventListener("click", () => calculateBMI(petArr));
 calculateBMI;
 function calculateBMI(petArr) {
   for (let i = 0; i < petArr.length; i++) {
     if (petArr[i].type === "Dog") {
-      petArr[i].bmi = (petArr[i].weight * 703) / petArr[i].lengthA ** 2;
+      petArr[i].bmi = (petArr[i].weight * 703) / petArr[i].lengthPet ** 2;
     } else {
-      petArr[i].bmi = (petArr[i].weight * 886) / petArr[i].lengthA ** 2;
+      petArr[i].bmi = (petArr[i].weight * 886) / petArr[i].lengthPet ** 2;
     }
+    petArr[i].bmi = petArr[i].bmi.toFixed(2);
   }
   renderTableData(petArr);
 }
